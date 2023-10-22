@@ -3,6 +3,7 @@ from pprint import pprint
 
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse
+from django.urls import reverse
 
 from .models import Place, Image
 from django.shortcuts import render, get_object_or_404
@@ -20,24 +21,30 @@ def get_GeoJSON(request):
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [f'{float(moscow_legends_coordinates["lng"])}', f'{float(moscow_legends_coordinates["lat"])}']
+                    "coordinates": [
+                        f'{float(moscow_legends_coordinates["lng"])}',
+                        f'{float(moscow_legends_coordinates["lat"])}'
+                    ]
                 },
                 "properties": {
                     "title": "«Легенды Москвы",
                     "placeId": "moscow_legends",
-                    "detailsUrl": "static/places/moscow_legends.json"
+                    "detailsUrl": reverse('JSONdata', kwargs={'id': 1})
                 }
             },
             {
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [f'{float(roofs24_coordinates["lng"])}', f'{float(roofs24_coordinates["lat"])}']
+                    "coordinates": [
+                        f'{float(roofs24_coordinates["lng"])}',
+                        f'{float(roofs24_coordinates["lat"])}'
+                    ]
                 },
                 "properties": {
                     "title": "Крыши24.рф",
                     "placeId": "roofs24",
-                    "detailsUrl": "static/places/roofs24.json"
+                    "detailsUrl": reverse('JSONdata', kwargs={'id': 2})
                 }
             }
         ]
