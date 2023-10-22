@@ -1,4 +1,8 @@
+from django.conf import settings
 from django.db import models
+
+
+
 
 class Place(models.Model):
     title = models.CharField(max_length=255, blank=False)
@@ -16,3 +20,7 @@ class Image(models.Model):
 
     def __str__(self):
         return str(self.number) + ' ' + str(self.place)
+
+    @property
+    def get_absolute_image_url(self):
+        return f'{self.image.url}'
