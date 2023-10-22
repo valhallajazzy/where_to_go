@@ -3,4 +3,5 @@ db.sqlite3
 poetry.lock
 where_to_go/__pycache__/
 places/__pycache__/
+places/migrations/__pycache__/
 media/
