@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 
 class Place(models.Model):
@@ -26,5 +27,11 @@ class Image(models.Model):
     def get_absolute_image_url(self):
         return f'{self.image.url}'
 
+    def place_image(self):
+        return mark_safe('<img src="{}" height="150" />'.format(self.image.url))
+
+
 class ImageInline(admin.TabularInline):
     model = Image
+    fields = ('image', 'place_image', 'number')
+    readonly_fields = ["place_image"]
