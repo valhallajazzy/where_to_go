@@ -9,10 +9,9 @@ from .models import Place, Image
 from django.shortcuts import render, get_object_or_404
 
 
-# Create your views here.
 def get_GeoJSON(request):
-    moscow_legends_coordinates = Place.objects.get(title='Экскурсионный проект «Крыши24.рф»').coordinates
-    roofs24_coordinates = Place.objects.get(title='Экскурсионная компания «Легенды Москвы»').coordinates
+    moscow_legends_coordinates = [float(Place.objects.get(id=1).longitude), float(Place.objects.get(id=1).latitude)]
+    roofs24_coordinates = [float(Place.objects.get(id=2).longitude), float(Place.objects.get(id=2).latitude)]
     geo_json = \
     {
         "type": "FeatureCollection",
@@ -21,10 +20,7 @@ def get_GeoJSON(request):
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [
-                        f'{float(moscow_legends_coordinates["lng"])}',
-                        f'{float(moscow_legends_coordinates["lat"])}'
-                    ]
+                    "coordinates": moscow_legends_coordinates
                 },
                 "properties": {
                     "title": "«Легенды Москвы",
@@ -36,10 +32,8 @@ def get_GeoJSON(request):
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [
-                        f'{float(roofs24_coordinates["lng"])}',
-                        f'{float(roofs24_coordinates["lat"])}'
-                    ]
+                    "coordinates": roofs24_coordinates
+
                 },
                 "properties": {
                     "title": "Крыши24.рф",
@@ -63,6 +57,6 @@ def get_JSONdata(request, id):
         "imgs": image_url_list,
         "description_short": location.description_short,
         "description_long": location.description_long,
-        "coordinates": location.coordinates
+        "coordinates": {'lat': location.latitude, 'lng': location.longitude }
     }
     return JsonResponse(data, json_dumps_params={'ensure_ascii': False, 'indent': 4})
