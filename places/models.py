@@ -1,7 +1,9 @@
 from django.conf import settings
+from django.contrib.admin.options import InlineModelAdmin
 from django.db import models
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from adminsortable2.admin import SortableStackedInline
 
 
 class Place(models.Model):
@@ -16,7 +18,7 @@ class Place(models.Model):
         return self.title
 
 class Image(models.Model):
-    number = models.PositiveIntegerField(verbose_name='Позиция')
+    number = models.PositiveIntegerField(verbose_name='Позиция', default=0)
     place = models.ForeignKey(Place, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True, verbose_name='Картинка')
 
@@ -30,8 +32,13 @@ class Image(models.Model):
     def place_image(self):
         return mark_safe('<img src="{}" height="150" />'.format(self.image.url))
 
+    class Meta:
+        ordering = ['number']
 
-class ImageInline(admin.TabularInline):
+
+
+
+class ImageInline(SortableStackedInline):
     model = Image
     fields = ('image', 'place_image', 'number')
     readonly_fields = ["place_image"]
