@@ -12,6 +12,7 @@ django = "^4.2.6"
 jinja2 = "^3.1.2"
 pillow = "^10.1.0"
 django-admin-sortable2 = "^2.1.10"
+django-tinymce = "^3.6.1"
 
 
 [build-system]

@@ -4,14 +4,16 @@ from django.db import models
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from adminsortable2.admin import SortableStackedInline
+from tinymce.models import HTMLField
 
 
 class Place(models.Model):
     title = models.CharField(max_length=255, blank=False, verbose_name='Заголовок')
     description_short = models.TextField(verbose_name='Короткое описание')
-    description_long = models.TextField(verbose_name='Развернутое описание')
+    description_long = HTMLField(verbose_name='Развернутое описание')
     latitude = models.FloatField(verbose_name='Широта')
     longitude = models.FloatField(verbose_name='Долгота')
+
 
 
     def __str__(self):
