@@ -13,6 +13,10 @@
 $ poetry install
 $ poetry shell
 ```
+* Создайте файл .env в корневой директории проекта и укажите переменные окружения
+![Screenshot](https://github.com/valhallajazzy/wine/blob/main/screenshots/env.png)
+![Screenshot](https://github.com/valhallajazzy/wine/blob/main/screenshots/vatiable.png)
+
 * Проведите миграции
 ```console
 $ python manage.py makemigrations
