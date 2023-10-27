@@ -4,7 +4,7 @@
 
 ![&#x41A;&#x443;&#x434;&#x430; &#x43F;&#x43E;&#x439;&#x442;&#x438;](.gitbook/assets/site.png)
 
-[Демка сайта](https://devmanorg.github.io/where-to-go-frontend/).
+[Демка сайта](./pictures_guide/site.png).
 
 ## Как запустить
 * Скачайте код
@@ -14,8 +14,8 @@ $ poetry install
 $ poetry shell
 ```
 * Создайте файл .env в корневой директории проекта и укажите переменные окружения
-![Screenshot](https://github.com/valhallajazzy/wine/blob/main/screenshots/env.png)
-![Screenshot](https://github.com/valhallajazzy/wine/blob/main/screenshots/vatiable.png)
+![Screenshot](./pictures_guide/env_файл_where_to_go.png)
+![Screenshot](./pictures_guide/vatiables.png)
 
 * Проведите миграции
 ```console
