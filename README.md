@@ -2,7 +2,7 @@
 
 Фронтенд для будущего сайта о самых интересных местах в Москве.
 
-![&#x41A;&#x443;&#x434;&#x430; &#x43F;&#x43E;&#x439;&#x442;&#x438;](.gitbook/assets/site.png)
+![Screenshot](https://github.com/valhallajazzy/where_to_go/blob/main/pictures_guide/site.png)
 
 [Демка сайта](./pictures_guide/site.png).
 
