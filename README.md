@@ -4,7 +4,7 @@
 
 ![Screenshot](https://github.com/valhallajazzy/where_to_go/blob/main/pictures_guide/site.png)
 
-[Демка сайта](./pictures_guide/site.png).
+[Демка сайта](https://valhallajazzy.pythonanywhere.com/)
 
 ## Как запустить
 * Скачайте код
