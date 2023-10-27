@@ -13,12 +13,12 @@
 $ poetry install
 $ poetry shell
 ```
-*Проведите миграции
+* Проведите миграции
 ```console
 $ python manage.py makemigrations
 $ python manage.py migrate
 ```
-*Запустите сервер
+* Запустите сервер
 ```console
 $ python manage.py runserver
 ```
