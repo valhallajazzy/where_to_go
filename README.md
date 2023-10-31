@@ -35,4 +35,4 @@ $ python manage.py load_place "Ваш url к json файлу"
 ```
 
 Пример JSON-файла
-![Screenshot](./pictures_guide/Снимок экрана от 2023-11-01 01-03-08.png)
+![Screenshot](./pictures_guide/json_exmple.png)
