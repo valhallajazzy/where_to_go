@@ -27,3 +27,9 @@ $ python manage.py migrate
 ```console
 $ python manage.py runserver
 ```
+
+## Добавить локации
+* В терминале пропишите команду
+```console
+$ python manage.py load_place "Ваш url к json файлу"
+```
