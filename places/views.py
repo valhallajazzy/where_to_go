@@ -12,9 +12,8 @@ def get_geo_json(request):
     }
 
     places = Place.objects.all()
-
     for place in places:
-        coordinates = [float(place.longitude), float(place.latitude)]
+        coordinates = [place.longitude, place.latitude]
         geo_json['features'].append(
             {
                 "type": "Feature",
