@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from django.urls import reverse
-from .models import Place, Pictures
 from django.shortcuts import render, get_object_or_404
+
+from .models import Place, Pictures
 
 
 def get_geo_json(request):

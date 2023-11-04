@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.safestring import mark_safe
+
 from adminsortable2.admin import SortableStackedInline
 from tinymce.models import HTMLField
 
