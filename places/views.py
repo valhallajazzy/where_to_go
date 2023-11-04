@@ -42,8 +42,8 @@ def get_json_data(request, id):
     data = {
         "title": location.title,
         "imgs": image_url_list,
-        "description_short": location.description_short,
-        "description_long": location.description_long,
+        "description_short": location.short_description,
+        "description_long": location.long_description,
         "coordinates": {'lat': location.latitude, 'lng': location.longitude}
     }
     return JsonResponse(data, json_dumps_params={'ensure_ascii': False, 'indent': 4})

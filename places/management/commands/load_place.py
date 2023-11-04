@@ -22,8 +22,8 @@ class Command(BaseCommand):
 
         pls, created = Place.objects.get_or_create(
             title=json_file.get('title'),
-            description_short=json_file.get('description_short'),
-            description_long=json_file.get('description_long'),
+            short_description=json_file.get('description_short'),
+            long_description=json_file.get('description_long'),
             latitude=json_file.get('coordinates')['lat'],
             longitude=json_file.get('coordinates')['lng'],
         )
