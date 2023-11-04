@@ -9,8 +9,8 @@ class Place(models.Model):
     title = models.CharField(max_length=255, blank=False, verbose_name='Заголовок', unique=True)
     short_description = models.TextField(blank=True, verbose_name='Короткое описание')
     long_description = HTMLField(blank=True, verbose_name='Развернутое описание')
-    latitude = models.FloatField(verbose_name='Широта', unique=True)
-    longitude = models.FloatField(verbose_name='Долгота', unique=True)
+    latitude = models.FloatField(verbose_name='Широта')
+    longitude = models.FloatField(verbose_name='Долгота')
 
     def __str__(self):
         return self.title
