@@ -13,14 +13,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             url = options['url']
-            r = requests.get(url)
-            json_file = r.json()
+            request = requests.get(url)
+            json_file = request.json()
             images_url_list = json_file['imgs']
 
         except:
             raise CommandError('Json file "%s" does not exist' % url)
 
-        pls, created = Place.objects.get_or_create(
+        place, created = Place.objects.get_or_create(
             title=json_file.get('title'),
             short_description=json_file.get('description_short'),
             long_description=json_file.get('description_long'),
@@ -29,10 +29,10 @@ class Command(BaseCommand):
         )
 
         for url in images_url_list:
-            r = requests.get(f'{url}')
-            photo = ContentFile(r.content)
-            img, created = Picture.objects.get_or_create(
+            request = requests.get(f'{url}')
+            photo = ContentFile(request.content)
+            image, created = Picture.objects.get_or_create(
                 number=images_url_list.index(url)+1,
-                place=pls
+                place=place
             )
-            img.image.save("{}{}".format(json_file['title'], images_url_list.index(url))+'.jpg', photo, save=True),
+            image.image.save("{}{}".format(json_file['title'], images_url_list.index(url))+'.jpg', photo, save=True),

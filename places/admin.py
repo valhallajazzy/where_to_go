@@ -19,5 +19,6 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
 
 @admin.register(Picture)
 class PictureAdmin(admin.ModelAdmin):
-    fields = ['image', 'number', 'place']
+    fields = ['get_preview_image','image', 'number', 'place']
     raw_id_fields = ['place']
+    readonly_fields = ["get_preview_image"]
