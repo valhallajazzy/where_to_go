@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 
 from adminsortable2.admin import SortableStackedInline
 from tinymce.models import HTMLField
@@ -16,26 +16,21 @@ class Place(models.Model):
         return self.title
 
 
-class Pictures(models.Model):
+class Picture(models.Model):
     number = models.PositiveIntegerField(null=True, blank=True, verbose_name='Позиция', default=0)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, verbose_name='Принадлежность локации')
-    image = models.ImageField(null=True, blank=True, verbose_name='Картинка', unique=True)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='pictures', verbose_name='Принадлежность локации')
+    image = models.ImageField(verbose_name='Картинка', unique=True)
+
+    class Meta:
+        ordering = ['number']
 
     def __str__(self):
-        return str(self.number) + ' ' + str(self.place)
+        return f'{self.number} {self.place}'
 
     @property
     def get_absolute_image_url(self):
         return f'{self.image.url}'
 
-    def place_image(self):
-        return mark_safe('<img src="{}" height="150" />'.format(self.image.url))
+    def get_preview_image(self):
+        return format_html('<img src="{}" height="150" />', self.image.url)
 
-    class Meta:
-        ordering = ['number']
-
-
-class ImageInline(SortableStackedInline):
-    model = Pictures
-    fields = ('image', 'place_image', 'number')
-    readonly_fields = ["place_image"]

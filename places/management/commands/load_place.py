@@ -31,7 +31,7 @@ class Command(BaseCommand):
         for url in images_url_list:
             r = requests.get(f'{url}')
             photo = ContentFile(r.content)
-            img, created = Pictures.objects.get_or_create(
+            img, created = Picture.objects.get_or_create(
                 number=images_url_list.index(url)+1,
                 place=pls
             )

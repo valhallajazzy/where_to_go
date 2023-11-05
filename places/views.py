@@ -2,11 +2,11 @@ from django.http import JsonResponse
 from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
 
-from .models import Place, Pictures
+from .models import Place
 
 
 def get_geo_json(request):
-    geo_json = \
+    geo_data = \
     {
         "type": "FeatureCollection",
         "features": []
@@ -15,7 +15,7 @@ def get_geo_json(request):
     places = Place.objects.all()
     for place in places:
         coordinates = [place.longitude, place.latitude]
-        geo_json['features'].append(
+        geo_data['features'].append(
             {
                 "type": "Feature",
                 "geometry": {
@@ -30,14 +30,14 @@ def get_geo_json(request):
             }
         )
 
-    return render(request, "index.html", {"geo_json": geo_json})
+    return render(request, "index.html", {"geo_json": geo_data})
 
 
 def get_json_data(request, id):
     location = get_object_or_404(Place, id=id)
-    image = Pictures.objects.filter(place=id)
+    images = location.pictures.all()
     image_url_list = []
-    for elem in image:
+    for elem in images:
         image_url_list.append(elem.get_absolute_image_url)
     data = {
         "title": location.title,
