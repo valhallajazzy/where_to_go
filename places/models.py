@@ -17,7 +17,7 @@ class Place(models.Model):
 
 
 class Picture(models.Model):
-    number = models.PositiveIntegerField(null=True, blank=True, verbose_name='Позиция', default=0)
+    number = models.PositiveIntegerField(blank=True, verbose_name='Позиция', default=0)
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='pictures', verbose_name='Принадлежность локации')
     image = models.ImageField(verbose_name='Картинка', unique=True)
 
@@ -32,5 +32,5 @@ class Picture(models.Model):
         return f'{self.image.url}'
 
     def get_preview_image(self):
-        return format_html('<img src="{}" height="150" />', self.image.url)
+        return format_html('<img src="{}" style="max-height:200px" />', self.image.url)
 

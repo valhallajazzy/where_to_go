@@ -33,7 +33,7 @@ def get_geo_json(request):
 
 
 def get_json_data(request, id):
-    location = Picture.objects.select_related('place').filter(place=id)
+    location = Picture.objects.prefetch_related('place').filter(place=id)
     image_urls = [image.get_absolute_image_url for image in location]
     place_serialize = {
         "title": location[0].place.title,

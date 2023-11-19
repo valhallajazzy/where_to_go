@@ -21,18 +21,19 @@ class Command(BaseCommand):
             raise CommandError('Json file "%s" does not exist' % url)
 
         place, created = Place.objects.get_or_create(
-            defaults={'title': json_file.get('title')},
             title=json_file.get('title'),
-            short_description=json_file.get('description_short'),
-            long_description=json_file.get('description_long'),
-            latitude=json_file.get('coordinates')['lat'],
-            longitude=json_file.get('coordinates')['lng'],
+            defaults={
+                'short_description': json_file.get('description_short'),
+                'long_description': json_file.get('description_long'),
+                'latitude': json_file.get('coordinates')['lat'],
+                'longitude': json_file.get('coordinates')['lng'],
+            }
         )
 
-        for url in images_urls:
-            request = requests.get(f'{url}')
+        for number, url in enumerate(images_urls):
+            request = requests.get(url)
             image, created = Picture.objects.get_or_create(
-                number=images_urls.index(url)+1,
+                number=number,
                 place=place,
-                image=ContentFile(request.content, name="{}{}".format(json_file['title'], images_urls.index(url))+'.jpg')
+                image=ContentFile(request.content, name="{}{}".format(json_file['title'], number)+'.jpg')
             )
