@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import Place, Picture
 
@@ -33,13 +33,14 @@ def get_geo_json(request):
 
 
 def get_json_data(request, id):
-    location = Picture.objects.prefetch_related('place').filter(place=id)
-    image_urls = [image.get_absolute_image_url for image in location]
+    location = get_object_or_404(Place.objects.prefetch_related('pictures'), id=id)
+    images = location.pictures.all()
+    images_urls = [image.get_absolute_image_url for image in images]
     place_serialize = {
-        "title": location[0].place.title,
-        "imgs": image_urls,
-        "description_short": location[0].place.short_description,
-        "description_long": location[0].place.long_description,
-        "coordinates": {'lat': location[0].place.latitude, 'lng': location[0].place.longitude}
+        "title": location.title,
+        "imgs": images_urls,
+        "description_short": location.short_description,
+        "description_long": location.long_description,
+        "coordinates": {'lat': location.latitude, 'lng': location.longitude}
     }
     return JsonResponse(place_serialize, json_dumps_params={'ensure_ascii': False, 'indent': 4})
