@@ -31,9 +31,9 @@ class Command(BaseCommand):
         )
 
         for number, url in enumerate(images_urls):
-            request = requests.get(url)
+            response = requests.get(url)
             image, created = Picture.objects.get_or_create(
                 number=number,
                 place=place,
-                image=ContentFile(request.content, name="{}{}".format(location['title'], number)+'.jpg')
+                image=ContentFile(response.content, name="{}{}".format(location['title'], number)+'.jpg')
             )
