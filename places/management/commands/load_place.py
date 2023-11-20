@@ -13,20 +13,20 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             url = options['url']
-            request = requests.get(url)
-            json_file = request.json()
-            images_urls = json_file['imgs']
+            response = requests.get(url)
+            location = response.json()
+            images_urls = location['imgs']
 
         except:
             raise CommandError('Json file "%s" does not exist' % url)
 
         place, created = Place.objects.get_or_create(
-            title=json_file.get('title'),
+            title=location.get('title'),
             defaults={
-                'short_description': json_file.get('description_short'),
-                'long_description': json_file.get('description_long'),
-                'latitude': json_file.get('coordinates')['lat'],
-                'longitude': json_file.get('coordinates')['lng'],
+                'short_description': location.get('description_short'),
+                'long_description': location.get('description_long'),
+                'latitude': location.get('coordinates')['lat'],
+                'longitude': location.get('coordinates')['lng'],
             }
         )
 
@@ -35,5 +35,5 @@ class Command(BaseCommand):
             image, created = Picture.objects.get_or_create(
                 number=number,
                 place=place,
-                image=ContentFile(request.content, name="{}{}".format(json_file['title'], number)+'.jpg')
+                image=ContentFile(request.content, name="{}{}".format(location['title'], number)+'.jpg')
             )

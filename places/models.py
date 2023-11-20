@@ -32,5 +32,5 @@ class Picture(models.Model):
         return f'{self.image.url}'
 
     def get_preview_image(self):
-        return format_html('<img src="{}" style="max-height:200px" />', self.image.url)
+        return format_html('<img src="{}" style="max-height:200px; max-width:400px;" />', self.image.url)
 

@@ -5,8 +5,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Place, Picture
 
 
-def get_geo_json(request):
-    geo_data = {
+def put_map_locations(request):
+    location = {
         "type": "FeatureCollection",
         "features": []
     }
@@ -14,7 +14,7 @@ def get_geo_json(request):
     places = Place.objects.all()
     for place in places:
         coordinates = [place.longitude, place.latitude]
-        geo_data['features'].append(
+        location['features'].append(
             {
                 "type": "Feature",
                 "geometry": {
@@ -29,7 +29,7 @@ def get_geo_json(request):
             }
         )
 
-    return render(request, "index.html", {"geo_json": geo_data})
+    return render(request, "index.html", {"geo_json": location})
 
 
 def get_json_data(request, id):
